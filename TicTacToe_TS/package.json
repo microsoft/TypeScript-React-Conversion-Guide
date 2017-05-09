@@ -1,0 +1,17 @@
+{
+  "name": "react-tic-tac-toe",
+  "version": "1.0.0",
+  "main": "index.js",
+  "dependencies": {
+    "@types/react": "^15.0.21",
+    "@types/react-dom": "^0.14.23",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2"
+  },
+  "devDependencies": {
+    "webpack": "^2.3.3",
+    "typescript": "^2.3.2",
+    "awesome-typescript-loader": "^3.1.2",
+    "source-map-loader": "^0.2.1"
+  }
+}

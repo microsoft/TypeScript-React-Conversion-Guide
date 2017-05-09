@@ -1,0 +1,16 @@
+{
+  "name": "react-tic-tac-toe",
+  "version": "1.0.0",
+  "main": "index.js",
+  "dependencies": {
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2"
+  },
+  "devDependencies": {
+    "webpack": "^2.3.3",
+    "babel-core": "^6.24.0",
+    "babel-loader": "^6.4.1",
+    "babel-preset-es2015": "^6.24.0",
+    "babel-preset-react": "^6.23.0"
+  }
+}
