@@ -1,4 +1,4 @@
-#TypeScript React Conversion Guide
+# TypeScript React Conversion Guide
 
 This walkthrough illustrates how to adopt TypeScript in an existing React/Babel/Webpack project. We'll start with a TicTacToe project written fully in JavaScript in the `TicTacToe_JS` folder as an example. By the end, you will have a TicTacToe project fully written with TypeScript.
 
