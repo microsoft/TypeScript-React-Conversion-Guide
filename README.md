@@ -83,7 +83,7 @@ You can edit some of the options or add more based on your own need. See more fu
 
 ## Set up build pipeline
 
-To add TypeScript compilation as part of our build process, you need to modify the Webpack config file `webpack.configure.js`. This section is specific to Webpack. However, if you are using a different task runner (e.g. Gulp) for your React/Babel project, the idea is the same - replace the Babel build step with TypeScript, as TypeScript also offers transpiling to lower ECMAScript versions and JSX transpilation with a shorter build time in most cases. If you wish, you can also keep Babel by adding a TypeScript build step before Babel and feeding its output to Babel. 
+To add TypeScript compilation as part of our build process, you need to modify the Webpack config file `webpack.config.js`. This section is specific to Webpack. However, if you are using a different task runner (e.g. Gulp) for your React/Babel project, the idea is the same - replace the Babel build step with TypeScript, as TypeScript also offers transpiling to lower ECMAScript versions and JSX transpilation with a shorter build time in most cases. If you wish, you can also keep Babel by adding a TypeScript build step before Babel and feeding its output to Babel. 
 
 Generally, we need to change `webpack.config.js` in a few ways,
 
@@ -91,7 +91,7 @@ Generally, we need to change `webpack.config.js` in a few ways,
 2. Replace `babel-loader` with `awesome-typescript-loader`. 
 3. Add source-map support.
 
-Let's modify `webpack.configure.js` as below,
+Let's modify `webpack.config.js` as below,
 
 ```js
 module.exports = {
