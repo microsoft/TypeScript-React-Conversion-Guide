@@ -224,4 +224,4 @@ npm install
 node ./node_modules/webpack/bin/webpack.js
 ```
 
-Run the app by openning `index.html`.
+Run the app by opening `index.html`.
