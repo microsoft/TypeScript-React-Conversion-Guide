@@ -68,7 +68,7 @@ Next, configure TypeScript by creating a `tsconfig.json` file in the `TicTacToe_
         "outDir": "./dist/",        // path to output directory
         "sourceMap": true,          // allow sourcemap support
         "strictNullChecks": true,   // enable strict null checks as a best practice
-        "module": "es6",            // specifiy module code generation
+        "module": "es6",            // specify module code generation
         "jsx": "react",             // use typescript to transpile jsx to js
         "target": "es5",            // specify ECMAScript target version
         "allowJs": true             // allow a partial TypeScript and JavaScript codebase  
