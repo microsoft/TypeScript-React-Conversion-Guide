@@ -147,7 +147,7 @@ Let's look at `gameStateBar.jsx` as an example.
 
 Step one is to rename `gameStateBar.jsx` to `gameStateBar.tsx`. If you are using any editor with TypeScript support such as [Visual Studio Code](https://code.visualstudio.com/), you should be able to see a few complaints from your editor.
 
-On line 1 `import React from "react";`, change the import statement to `import * as React from "react"`. This is because while importing a CommonJS module, Babel assumes `modules.export` as default export, while TypeScript does not.
+On line 1 `import React from "react";`, change the import statement to `import * as React from "react"`. This is because while importing a CommonJS module, Babel assumes `module.exports` as default export, while TypeScript does not.
 
 On line 3 `export class GameStateBar extends React.Component {`, change the class declaration to `export class GameStateBar extends React.Component<any, any> {`. The type declaration of `React.Component` uses [generic types](https://www.typescriptlang.org/docs/handbook/generics.html) and requires providing the types for the property and state object for the component. The use of `any` allows us to pass in any value as the property or state object, which is not useful in terms of type checking but suffices as minimum effort to appease the compiler.
 
