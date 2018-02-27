@@ -147,7 +147,8 @@ Let's look at `gameStateBar.jsx` as an example.
 
 Step one is to rename `gameStateBar.jsx` to `gameStateBar.tsx`. If you are using any editor with TypeScript support such as [Visual Studio Code](https://code.visualstudio.com/), you should be able to see a few complaints from your editor.
 
-On line 1 `import React from "react";`, change the import statement to `import * as React from "react"`. This is because while importing a CommonJS module, Babel assumes `modules.export` as default export, while TypeScript does not.
+Add option `"allowSyntheticDefaultImports": true` in your `tsconfig.json` file to allow TypeScript compiler use default imports from modules with no default export. In TypeScript version 2.7.0 or newer you can use `"esModuleInterop": true` option to achieve the same results: [TypeScript 2.7
+Release Notes](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-7.html) for more on this feature.
 
 On line 3 `export class GameStateBar extends React.Component {`, change the class declaration to `export class GameStateBar extends React.Component<any, any> {`. The type declaration of `React.Component` uses [generic types](https://www.typescriptlang.org/docs/handbook/generics.html) and requires providing the types for the property and state object for the component. The use of `any` allows us to pass in any value as the property or state object, which is not useful in terms of type checking but suffices as minimum effort to appease the compiler.
 

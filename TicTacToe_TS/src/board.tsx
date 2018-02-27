@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import { CellValue, GameState, playerCell, aiCell } from "./constants"; 
 
 interface BoardState {
