@@ -1,8 +1,8 @@
 import * as React from "react";
 import { render } from "react-dom";
-import { Board } from "./Board";
-import { RestartBtn } from "./RestartBtn";
-import { GameStateBar } from "./GameStateBar";
+import { Board } from "./board";
+import { RestartBtn } from "./restartBtn";
+import { GameStateBar } from "./gameStateBar";
 import { GameState } from "./constants";
 
 class App extends React.Component<{}, {}> {
