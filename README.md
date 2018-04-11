@@ -21,17 +21,17 @@ As shown in `package.json`, the app already includes React/ReactDOM, Webpack as 
 
 ```txt
 TicTacToe_JS /
-    |---- css/			        // css style sheets
-    |---- src/			        // source files
-        |---- app.jsx		        // the App React component
-        |---- board.jsx		        // the TicTacToe Board React component
-        |---- constants.js		// some shared constants
-        |---- gameStateBar.jsx	        // GameStatusBar React component
-        |---- restartBtn.jsx	        // RestartBtn React component
-    |---- .babelrc		        // a list of babel presets
-    |---- index.html		        // web page for our app
-    |---- package.json		        // node package configuration file
-    |---- webpack.config.js	        // Webpack configuration file
+    |---- css/                         // css style sheets
+    |---- src/                         // source files
+        |---- app.jsx                  // the App React component
+        |---- board.jsx                // the TicTacToe Board React component
+        |---- constants.js             // some shared constants
+        |---- gameStateBar.jsx         // GameStatusBar React component
+        |---- restartBtn.jsx           // RestartBtn React component
+    |---- .babelrc                     // a list of babel presets
+    |---- index.html                   // web page for our app
+    |---- package.json                 // node package configuration file
+    |---- webpack.config.js            // Webpack configuration file
 ```
 
 ## Add TypeScript compiler to build pipeline
@@ -72,6 +72,7 @@ Next, configure TypeScript by creating a `tsconfig.json` file in the `TicTacToe_
         "module": "es6",            // specify module code generation
         "jsx": "react",             // use typescript to transpile jsx to js
         "target": "es5",            // specify ECMAScript target version
+        "moduleResolution": "node", // use Node.js-style module resolution
         "allowJs": true             // allow a partial TypeScript and JavaScript codebase
 
     },
@@ -85,7 +86,7 @@ You can edit some of the options or add more based on your own need. See more fu
 
 ### Set up build pipeline
 
-To add TypeScript compilation as part of our build process, you need to modify the Webpack config file `webpack.configure.js`. This section is specific to Webpack. However, if you are using a different task runner (e.g. Gulp) for your React/Babel project, the idea is the same - replace the Babel build step with TypeScript, as TypeScript also offers transpiling to lower ECMAScript versions and JSX transpilation with a shorter build time in most cases. If you wish, you can also keep Babel by adding a TypeScript build step before Babel and feeding its output to Babel.
+To add TypeScript compilation as part of our build process, you need to modify the Webpack config file `webpack.config.js`. This section is specific to Webpack. However, if you are using a different task runner (e.g. Gulp) for your React/Babel project, the idea is the same - replace the Babel build step with TypeScript, as TypeScript also offers transpiling to lower ECMAScript versions and JSX transpilation with a shorter build time in most cases. If you wish, you can also keep Babel by adding a TypeScript build step before Babel and feeding its output to Babel.
 
 Generally, we need to change `webpack.config.js` in a few ways,
 
@@ -93,14 +94,14 @@ Generally, we need to change `webpack.config.js` in a few ways,
 2. Replace `babel-loader` with `awesome-typescript-loader`.
 3. Add source-map support.
 
-Let's modify `webpack.configure.js` as below,
+Let's modify `webpack.config.js` as below,
 
 ```js
 module.exports = {
   // change to .tsx if necessary
   entry: './src/app.jsx',
   output: {
-    filename: './dist/bundle.js'
+    filename: './bundle.js'
   },
   resolve: {
     // changed from extensions: [".js", ".jsx"]
