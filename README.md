@@ -93,7 +93,7 @@ Generally, we need to change `webpack.config.js` in a few ways,
 2. Replace `babel-loader` with `awesome-typescript-loader`.
 3. Add source-map support.
 
-Let's modify `webpack.configure.js` as below,
+Let's modify `webpack.config.js` as below,
 
 ```js
 module.exports = {
