@@ -108,10 +108,10 @@ module.exports = {
   },
   module: {
     rules: [
-      // changed from { test: /\.jsx?$/, use: { loader: 'babel-loader' } },
-      { test: /\.(t|j)sx?$/, use: { loader: 'awesome-typescript-loader' } },
+      // changed from { test: /\.jsx?$/, exclude: /node_modules/, use: { loader: 'babel-loader' } },
+      { test: /\.(t|j)sx?$/, exclude: /node_modules/, use: { loader: 'awesome-typescript-loader' } },
       // addition - add source-map support
-      { enforce: "pre", test: /\.js$/, loader: "source-map-loader" }
+      { enforce: "pre", test: /\.js$/, exclude: /node_modules/, loader: "source-map-loader" }
     ]
   },
   externals: {
