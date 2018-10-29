@@ -63,7 +63,7 @@ If you are using an older version of React/ReacDOM that are incompatible with th
 
 Next, configure TypeScript by creating a `tsconfig.json` file in the `TicTacToe_JS` folder, and add,
 
-```json
+```json5
 {
     "compilerOptions": {
         "outDir": "./dist/",        // path to output directory
