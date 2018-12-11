@@ -48,7 +48,7 @@ npm install
 Additionally, install TypeScript (2.3 or higher), [awesome-typescript-loader](https://www.npmjs.com/package/awesome-typescript-loader) and [source-map-loader](https://www.npmjs.com/package/source-map-loader) as dev dependencies if you haven't. awesome-typescript-loader is a Webpack plugin that helps you compile TypeScript code to JavaScript, much like babel-loader for Babel. There are also other alternative loaders for TypeScript, such as [ts-loader](https://github.com/TypeStrong/ts-loader). source-map-loader adds source map support for debugging.
 
 ```sh
-npm install --save-dev typescript awesome-typescript-loader source-map-loader
+npm install --save-dev typescript awesome-typescript-loader@4 source-map-loader
 ```
 
 Get the type declaration files (.d.ts files) from [@types](https://blogs.msdn.microsoft.com/typescript/2016/06/15/the-future-of-declaration-files/) for any library in use. For this project, we have React and ReactDOM.
@@ -72,7 +72,8 @@ Next, configure TypeScript by creating a `tsconfig.json` file in the `TicTacToe_
         "module": "es6",            // specify module code generation
         "jsx": "react",             // use typescript to transpile jsx to js
         "target": "es5",            // specify ECMAScript target version
-        "allowJs": true             // allow a partial TypeScript and JavaScript codebase
+        "allowJs": true,            // allow a partial TypeScript and JavaScript codebase
+        "moduleResolution": "node"  // for knowledge of node_module directory
 
     },
     "include": [
