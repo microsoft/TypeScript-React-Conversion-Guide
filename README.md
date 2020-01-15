@@ -21,17 +21,17 @@ As shown in `package.json`, the app already includes React/ReactDOM, Webpack as 
 
 ```txt
 TicTacToe_JS /
-    |---- css/			            // css style sheets
-    |---- src/			            // source files
-        |---- app.jsx		        // the App React component
+    |---- css/			              // css style sheets
+    |---- src/			              // source files
+        |---- app.jsx		          // the App React component
         |---- board.jsx		        // the TicTacToe Board React component
         |---- constants.js		    // some shared constants
-        |---- gameStateBar.jsx	    // GameStatusBar React component
+        |---- gameStateBar.jsx	  // GameStatusBar React component
         |---- restartBtn.jsx	    // RestartBtn React component
     |---- .babelrc		            // a list of babel presets
-    |---- index.html		        // web page for our app
+    |---- index.html		          // web page for our app
     |---- package.json		        // node package configuration file
-    |---- webpack.config.js	        // Webpack configuration file
+    |---- webpack.config.js	      // Webpack configuration file
 ```
 
 ## Add TypeScript compiler to build pipeline
@@ -108,10 +108,11 @@ module.exports = {
   },
   module: {
     rules: [
-      // changed from { test: /\.jsx?$/, use: { loader: 'babel-loader' } },
-      { test: /\.(t|j)sx?$/, use: { loader: 'ts-loader' } },
+      // changed from { test: /\.jsx?$/, use: { loader: 'babel-loader' }, exclude: /node_modules/ },
+      { test: /\.(t|j)sx?$/, use: { loader: 'ts-loader' }, exclude: /node_modules/ },
+
       // addition - add source-map support
-      { enforce: "pre", test: /\.js$/, loader: "source-map-loader" }
+      { enforce: "pre", test: /\.js$/, exclude: /node_modules/, loader: "source-map-loader" }
     ]
   },
   externals: {
