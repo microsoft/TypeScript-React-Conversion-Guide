@@ -1,7 +1,7 @@
 module.exports = {
   entry: './src/app.jsx',
   output: {
-    filename: './dist/bundle.js'
+    filename: './bundle.js'
   },
   resolve: {
     extensions: [".js", ".jsx"]

@@ -45,10 +45,10 @@ cd TicTacToe_JS
 npm install
 ```
 
-Additionally, install TypeScript (2.3 or higher), [awesome-typescript-loader](https://www.npmjs.com/package/awesome-typescript-loader) and [source-map-loader](https://www.npmjs.com/package/source-map-loader) as dev dependencies. `awesome-typescript-loader` is a Webpack plugin that helps you compile TypeScript code to JavaScript, much like `babel-loader` for Babel. There are also other alternative loaders for TypeScript, such as [ts-loader](https://github.com/TypeStrong/ts-loader). `source-map-loader` adds source map support for debugging.
+Additionally, install TypeScript (3 or higher), [ts-loader](https://www.npmjs.com/package/ts-loader) and [source-map-loader](https://www.npmjs.com/package/source-map-loader) as dev dependencies if you haven't. ts-loader is a Webpack plugin that helps you compile TypeScript code to JavaScript, much like babel-loader for Babel. There are also other alternative loaders for TypeScript! Source-map-loader adds source map support for debugging.
 
 ```sh
-npm install --save-dev typescript awesome-typescript-loader source-map-loader
+npm install --save-dev typescript ts-loader source-map-loader
 ```
 
 Get the type declaration files (.d.ts files) from [@types](https://blogs.msdn.microsoft.com/typescript/2016/06/15/the-future-of-declaration-files/) for any library in use. For this project, we have React and ReactDOM.
@@ -63,7 +63,7 @@ If you are using an older version of React or ReacDOM that is incompatible with 
 
 Next, configure TypeScript by creating a `tsconfig.json` file in the `TicTacToe_JS` folder, and add:
 
-```json
+```json5
 {
     "compilerOptions": {
         "outDir": "./dist/",        // path to output directory
@@ -90,7 +90,7 @@ To add TypeScript compilation as part of our build process, you need to modify t
 Generally, we need to change `webpack.config.js` in a few ways:
 
 1. Expand the module resolution extensions to include `.ts` and `.tsx` files.
-2. Replace `babel-loader` with `awesome-typescript-loader`.
+2. Replace `babel-loader` with `ts-loader`.
 3. Add source-map support.
 
 Let's modify `webpack.config.js` with the below:
@@ -109,7 +109,7 @@ module.exports = {
   module: {
     rules: [
       // changed from { test: /\.jsx?$/, use: { loader: 'babel-loader' } },
-      { test: /\.(t|j)sx?$/, use: { loader: 'awesome-typescript-loader' } },
+      { test: /\.(t|j)sx?$/, use: { loader: 'ts-loader' } },
       // addition - add source-map support
       { enforce: "pre", test: /\.js$/, loader: "source-map-loader" }
     ]
@@ -155,7 +155,7 @@ On line 1 `import React from "react";`, change the import statement to `import *
 
 On line 3 `export class GameStateBar extends React.Component {`, change the class declaration to `export class GameStateBar extends React.Component<any, any> {`. The type declaration of `React.Component` uses [generic types](https://www.typescriptlang.org/docs/handbook/generics.html) and requires providing the types for the property and state object for the component. The use of `any` allows us to pass in any value as the property or state object, which is not useful in terms of type checking but suffices as minimum effort to appease the compiler.
 
-By now, awesome-typescript-loader should be able to successfully compile this TypeScript component to JavaScript. Again, try bundling the app with the following command and then open `index.html` in a browser,
+By now, ts-loader should be able to successfully compile this TypeScript component to JavaScript. Again, try bundling the app with the following command and then open `index.html` in a browser,
 
 ```sh
 npx webpack
