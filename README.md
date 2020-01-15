@@ -6,49 +6,49 @@ If you are starting a new React project instead of converting one, you can use [
 
 Adopting TypeScript in any project can be broken down into 2 phases:
 
-* Adding TypeScript compiler (tsc) to your build pipeline.
+* Adding the TypeScript compiler (tsc) to your build pipeline.
 * Converting JavaScript files into TypeScript files.
 
 ## Understand the existing JavaScript project
 
-Before we dive into TypeScript adoption, let's take a look at the structure of the TicTacToe app. It contains a few components and looks like below with or without TypeScript.
+Before we dive into TypeScript adoption, let's take a look at the structure of the TicTacToe app -- it contains a few components and looks like the below (with or without TypeScript).
 
 <p align="center">
     <img src ="image/components.png"/>
 </p>
 
-As shown in `package.json`, the app already includes React/ReactDOM, Webpack as bundler & task runner, and [babel-loader](https://github.com/babel/babel-loader) Webpack plugin to use Babel for ES6 and JSX transpilation. The project has the below overall layout before we adopt TypeScript:
+As shown in `package.json`, the app already includes React/ReactDOM, Webpack as the bundler & task runner, and the [babel-loader](https://github.com/babel/babel-loader) Webpack plugin to use Babel for ES6 and JSX transpilation. The project initially has the below overall layout before we adopt TypeScript:
 
 ```txt
 TicTacToe_JS /
-    |---- css/			        // css style sheets
-    |---- src/			        // source files
-        |---- app.jsx		        // the App React component
+    |---- css/			              // css style sheets
+    |---- src/			              // source files
+        |---- app.jsx		          // the App React component
         |---- board.jsx		        // the TicTacToe Board React component
-        |---- constants.js		// some shared constants
-        |---- gameStateBar.jsx	        // GameStatusBar React component
-        |---- restartBtn.jsx	        // RestartBtn React component
-    |---- .babelrc		        // a list of babel presets
-    |---- index.html		        // web page for our app
+        |---- constants.js		    // some shared constants
+        |---- gameStateBar.jsx	  // GameStatusBar React component
+        |---- restartBtn.jsx	    // RestartBtn React component
+    |---- .babelrc		            // a list of babel presets
+    |---- index.html		          // web page for our app
     |---- package.json		        // node package configuration file
-    |---- webpack.config.js	        // Webpack configuration file
+    |---- webpack.config.js	      // Webpack configuration file
 ```
 
 ## Add TypeScript compiler to build pipeline
 
 ### Install dependencies
 
-First off, open terminal and `cd` to the `TicTacToe_JS` folder. Install dependencies in `package.json`.
+To get started, open a terminal and `cd` to the `TicTacToe_JS` folder. Install all dependencies defined in `package.json`.
 
 ```sh
 cd TicTacToe_JS
 npm install
 ```
 
-Additionally, install TypeScript (2.3 or higher), [awesome-typescript-loader](https://www.npmjs.com/package/awesome-typescript-loader) and [source-map-loader](https://www.npmjs.com/package/source-map-loader) as dev dependencies if you haven't. awesome-typescript-loader is a Webpack plugin that helps you compile TypeScript code to JavaScript, much like babel-loader for Babel. There are also other alternative loaders for TypeScript, such as [ts-loader](https://github.com/TypeStrong/ts-loader). source-map-loader adds source map support for debugging.
+Additionally, install TypeScript (3 or higher), [ts-loader](https://www.npmjs.com/package/ts-loader) and [source-map-loader](https://www.npmjs.com/package/source-map-loader) as dev dependencies if you haven't. ts-loader is a Webpack plugin that helps you compile TypeScript code to JavaScript, much like babel-loader for Babel. There are also other alternative loaders for TypeScript! Source-map-loader adds source map support for debugging.
 
 ```sh
-npm install --save-dev typescript awesome-typescript-loader source-map-loader
+npm install --save-dev typescript ts-loader source-map-loader
 ```
 
 Get the type declaration files (.d.ts files) from [@types](https://blogs.msdn.microsoft.com/typescript/2016/06/15/the-future-of-declaration-files/) for any library in use. For this project, we have React and ReactDOM.
@@ -57,13 +57,13 @@ Get the type declaration files (.d.ts files) from [@types](https://blogs.msdn.mi
 npm install --save @types/react @types/react-dom
 ```
 
-If you are using an older version of React/ReacDOM that are incompatible with the latest .d.ts files from @types, you can specify version number for `@types/react` and `@types/react-dom` in `package.json`.
+If you are using an older version of React or ReacDOM that is incompatible with the latest .d.ts files from @types, you can specify a version number for `@types/react` or `@types/react-dom` in `package.json`.
 
 ### Configure TypeScript
 
-Next, configure TypeScript by creating a `tsconfig.json` file in the `TicTacToe_JS` folder, and add,
+Next, configure TypeScript by creating a `tsconfig.json` file in the `TicTacToe_JS` folder, and add:
 
-```json
+```json5
 {
     "compilerOptions": {
         "outDir": "./dist/",        // path to output directory
@@ -81,19 +81,19 @@ Next, configure TypeScript by creating a `tsconfig.json` file in the `TicTacToe_
 }
 ```
 
-You can edit some of the options or add more based on your own need. See more full [compiler options](https://www.typescriptlang.org/docs/handbook/compiler-options.html).
+You can edit some of the options or add more based on your project's requirements. See more options in the full list of [compiler options](https://www.typescriptlang.org/docs/handbook/compiler-options.html).
 
 ### Set up build pipeline
 
-To add TypeScript compilation as part of our build process, you need to modify the Webpack config file `webpack.configure.js`. This section is specific to Webpack. However, if you are using a different task runner (e.g. Gulp) for your React/Babel project, the idea is the same - replace the Babel build step with TypeScript, as TypeScript also offers transpiling to lower ECMAScript versions and JSX transpilation with a shorter build time in most cases. If you wish, you can also keep Babel by adding a TypeScript build step before Babel and feeding its output to Babel.
+To add TypeScript compilation as part of our build process, you need to modify the Webpack config file `webpack.config.js`. This section is specific to Webpack. However, if you are using a different task runner (e.g. Gulp) for your React/Babel project, the idea is the same - replace the Babel build step with TypeScript, as TypeScript also offers transpiling to lower ECMAScript versions and JSX transpilation with a shorter build time in most cases. If you wish, you can also keep Babel by adding a TypeScript build step before Babel and feeding its output to Babel.
 
-Generally, we need to change `webpack.config.js` in a few ways,
+Generally, we need to change `webpack.config.js` in a few ways:
 
 1. Expand the module resolution extensions to include `.ts` and `.tsx` files.
-2. Replace `babel-loader` with `awesome-typescript-loader`.
+2. Replace `babel-loader` with `ts-loader`.
 3. Add source-map support.
 
-Let's modify `webpack.configure.js` as below,
+Let's modify `webpack.config.js` with the below:
 
 ```js
 module.exports = {
@@ -108,8 +108,9 @@ module.exports = {
   },
   module: {
     rules: [
-      // changed from { test: /\.jsx?$/, exclude: /node_modules/, use: { loader: 'babel-loader' } },
-      { test: /\.(t|j)sx?$/, exclude: /node_modules/, use: { loader: 'awesome-typescript-loader' } },
+      // changed from { test: /\.jsx?$/, use: { loader: 'babel-loader' }, exclude: /node_modules/ },
+      { test: /\.(t|j)sx?$/, use: { loader: 'ts-loader' }, exclude: /node_modules/ },
+
       // addition - add source-map support
       { enforce: "pre", test: /\.js$/, exclude: /node_modules/, loader: "source-map-loader" }
     ]
@@ -127,7 +128,7 @@ You can delete `.babelrc` and all Babel dependencies from `package.json` if you 
 
 Note that if you plan to adopt TypeScript in the entry file, you should change `entry: './src/app.jsx',` to `entry: './src/app.tsx',` as well. For the time being, we will keep it as `app.jsx`.
 
-You now have the build pipeline correctly set up with TypeScript handling the transpilation. Try bundling the app with the following command and then open `index.html` in a browser,
+You now have the build pipeline correctly set up with TypeScript handling the transpilation. Try bundling the app with the following command and then open `index.html` in a browser:
 
 ```sh
 npx webpack
@@ -155,7 +156,7 @@ On line 1 `import React from "react";`, change the import statement to `import *
 
 On line 3 `export class GameStateBar extends React.Component {`, change the class declaration to `export class GameStateBar extends React.Component<any, any> {`. The type declaration of `React.Component` uses [generic types](https://www.typescriptlang.org/docs/handbook/generics.html) and requires providing the types for the property and state object for the component. The use of `any` allows us to pass in any value as the property or state object, which is not useful in terms of type checking but suffices as minimum effort to appease the compiler.
 
-By now, awesome-typescript-loader should be able to successfully compile this TypeScript component to JavaScript. Again, try bundling the app with the following command and then open `index.html` in a browser,
+By now, ts-loader should be able to successfully compile this TypeScript component to JavaScript. Again, try bundling the app with the following command and then open `index.html` in a browser,
 
 ```sh
 npx webpack
