@@ -100,7 +100,7 @@ module.exports = {
   // change to .tsx if necessary
   entry: './src/app.jsx',
   output: {
-    filename: './dist/bundle.js'
+    filename: './bundle.js'
   },
   resolve: {
     // changed from extensions: [".js", ".jsx"]
